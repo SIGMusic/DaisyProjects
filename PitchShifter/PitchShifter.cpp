@@ -6,7 +6,6 @@ using namespace PitchShifter;
 
 void AudioCallback(AudioHandle::InputBuffer in, AudioHandle::OutputBuffer out, size_t size)
 {
-	value = hw.adc.GetFloat(0);
 	for (size_t i = 0; i < size; i++)
 	{
 		out[0][i] = in[0][i] * value;
@@ -38,10 +37,24 @@ int main(void)
 	hw.StartAudio(AudioCallback);
 	while (1)
 	{
+		value = hw.adc.GetFloat(0);
+		paramToFreqRatio(value, 1);
+		System::Delay(500);
 	}
 }
 
-int PitchShifter::paramToHz(float param)
+float PitchShifter::paramToFreqRatio(float param, int sign)
 {
-	return 0;
+	int semi = static_cast<int>(round(param * 12));
+	// hw.PrintLine("Interval (semitones): %d", semi);
+	float freqRatio = pow(2, (semi / 12));
+	if (sign < 0)
+	{
+		return 1 / freqRatio;
+	}
+	if (sign > 0)
+	{
+		return freqRatio;
+	}
+	return 1;
 }

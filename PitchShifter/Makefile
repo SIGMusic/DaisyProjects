@@ -12,4 +12,6 @@ DAISYSP_DIR = ../../DaisyExamples/DaisySP/
 SYSTEM_FILES_DIR = $(LIBDAISY_DIR)/core
 include $(SYSTEM_FILES_DIR)/Makefile
 
+# Required for making serial printing work with floats
 LDFLAGS += -u _printf_float
+
