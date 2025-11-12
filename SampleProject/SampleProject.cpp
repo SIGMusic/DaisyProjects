@@ -6,6 +6,10 @@ using namespace daisysp;
 
 DaisySeed hw;
 
+// STFT - get frequencies
+// Shift
+// ISTFT - return to time domain
+
 void AudioCallback(AudioHandle::InputBuffer in, AudioHandle::OutputBuffer out, size_t size)
 {
 	for (size_t i = 0; i < size; i++)
